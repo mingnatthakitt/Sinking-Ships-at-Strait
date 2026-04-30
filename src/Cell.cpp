@@ -59,7 +59,7 @@ string Cell::display(bool isCursor, bool isSelected) const {
             }
             color = MAGENTA;
         } else {
-            // AI Submarine hidden unless hit OR it has fired enough shots to be revealed
+            // AI Submarine
             bool revealed = hit || (shipPtr && !shipPtr->isHidden());
             if (revealed) {
                 if (shipPtr) {
@@ -81,7 +81,7 @@ string Cell::display(bool isCursor, bool isSelected) const {
         if (type == CellType::SHIP || type == CellType::SUBMARINE) {
             string icon = " X ";
             string color = RED;
-            if (isSelected) color = YELLOW; // Highlight selected ship even if hit
+            if (isSelected) color = YELLOW; // Highlight selected ship 
             return color + icon + RESET;
         } else if (type == CellType::ISLAND) {
             return YELLOW " # " RESET;
