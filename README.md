@@ -1,7 +1,7 @@
 # 🚢 Sinking Ships @ Strait ⚓️
 
 <p align="center">
-  <img src="COMP2113/ProjectTEMP/sinkingships.png" width="65%" />
+  <img src="./sinkingships.png" width="65%" />
 </p>
 ## 👥 Team Members
 - Natthakitt Prapunwattana (3036644606)
