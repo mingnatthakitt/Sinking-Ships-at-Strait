@@ -3,6 +3,7 @@
 <p align="center">
   <img src="./sinkingships.png" width="65%" />
 </p>
+
 ## 👥 Team Members
 - Natthakitt Prapunwattana (3036644606)
 - Fahtai Tanawongsuwan (3036538194)
