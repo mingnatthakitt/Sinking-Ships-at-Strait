@@ -11,7 +11,7 @@ enum class WeaponType { TORPEDO, ARCH };
 // Grid configuration
 const int GRID_SIZE = 25;
 
-// ANSI Color Codes for stunning terminal visuals
+// ANSI Color for terminal visuals
 #define RESET           "\033[0m"
 #define RED             "\033[31m"
 #define RED_BOLD        "\033[1;31m"
@@ -24,7 +24,7 @@ const int GRID_SIZE = 25;
 #define WHITE           "\033[37m"
 #define BOLD            "\033[1m"
 #define ORANGE          "\033[38;5;208m"
-#define HIGHLIGHT_BG    "\033[47;30m" // Black text on White bg for cursor
+#define HIGHLIGHT_BG    "\033[47;30m" 
 
 enum class CellType {
     EMPTY,
@@ -48,4 +48,4 @@ enum class Key {
     UNKNOWN
 };
 
-#endif // COMMON_H
+#endif 

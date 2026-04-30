@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Ship; // Forward declaration
+class Ship; 
 
 class Cell {
 public:
@@ -34,4 +34,4 @@ private:
     int ownerID;
 };
 
-#endif // CELL_H
+#endif 

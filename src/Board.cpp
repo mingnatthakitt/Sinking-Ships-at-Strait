@@ -8,21 +8,16 @@
 
 using namespace std;
 
-/**
- * @brief Constructor for the Board class
- * @param size The dimension of the square grid
- */
+
 Board::Board(int size) : size(size) {
-  // Coding element 3: Dynamic memory management
+  
   grid = new Cell *[size];
   for (int i = 0; i < size; ++i) {
     grid[i] = new Cell[size];
   }
 }
 
-/**
- * @brief Destructor for the Board class. Frees dynamic memory.
- */
+
 Board::~Board() {
   for (int i = 0; i < size; ++i) {
     delete[] grid[i];
@@ -30,9 +25,7 @@ Board::~Board() {
   delete[] grid;
 }
 
-/**
- * @brief Initializes the grid with empty cells.
- */
+
 void Board::initialize() {
   for (int i = 0; i < size; ++i) {
     for (int j = 0; j < size; ++j) {
@@ -43,17 +36,13 @@ void Board::initialize() {
   }
 }
 
-/**
- * @brief Randomly generates islands on the board.
- * @param count Number of islands to generate.
- */
+
 void Board::generateIslands(int count) {
-  // Coding element 1: Generation of random events
-  // Patterns defined by relative coordinates {(dr, dc), ...}
+
   vector<vector<pair<int, int>>> patterns = {
-      {{0, 0}, {1, 1}},                 // 1. Diagonal 2x2
-      {{0, 0}, {1, 0}, {2, 0}, {2, 1}}, // 2. L-shape 3x2
-      {{0, 0}, {0, 1}, {0, 2}, {0, 3}}, // 3. Block 4x1
+      {{0, 0}, {1, 1}},                 
+      {{0, 0}, {1, 0}, {2, 0}, {2, 1}}, 
+      {{0, 0}, {0, 1}, {0, 2}, {0, 3}}, 
       {{0, 1},
        {0, 2},
        {1, 0},
@@ -61,7 +50,7 @@ void Board::generateIslands(int count) {
        {1, 2},
        {1, 3},
        {2, 1},
-       {2, 2}} // 4. Block 3 rows (2,4,2)
+       {2, 2}} 
   };
 
   int generated = 0;
@@ -73,8 +62,6 @@ void Board::generateIslands(int count) {
     int type = rand() % patterns.size();
     auto &pattern = patterns[type];
 
-    // Ensure no islands touch: check 1-cell radius around every coordinate in
-    // the pattern
     bool tooClose = false;
     for (auto &p : pattern) {
       int targetR = r + p.first;
@@ -99,7 +86,7 @@ void Board::generateIslands(int count) {
     }
 
     if (!tooClose) {
-      // Place the island cells
+      // island cells
       for (auto &p : pattern) {
         int nr = r + p.first;
         int nc = c + p.second;
@@ -112,38 +99,18 @@ void Board::generateIslands(int count) {
   }
 }
 
-/**
- * @brief Returns the grid size.
- * @return int size
- */
+
 int Board::getSize() const { return size; }
 
-/**
- * @brief Returns a reference to the cell at (r, c).
- * @param r row index
- * @param c column index
- * @return Cell&
- */
+
 Cell &Board::getCell(int r, int c) { return grid[r][c]; }
 
-/**
- * @brief Checks if the given coordinates are within the board.
- * @param r row index
- * @param c column index
- * @return true if valid, false otherwise
- */
+
 bool Board::isValid(int r, int c) const {
   return r >= 0 && r < size && c >= 0 && c < size;
 }
 
-/**
- * @brief Checks if a ship can be placed at the given location.
- * @param r start row index
- * @param c start column index
- * @param length ship length
- * @param vertical true if ship is vertical
- * @return true if placement is valid
- */
+
 bool Board::canPlaceShip(int r, int c, Ship *ship, bool vertical) {
   int w = ship->getWidth();
   int h = ship->getHeight();
@@ -162,14 +129,6 @@ bool Board::canPlaceShip(int r, int c, Ship *ship, bool vertical) {
   return true;
 }
 
-/**
- * @brief Places a ship pointer onto the grid.
- * @param r start row index
- * @param c start column index
- * @param length ship length
- * @param vertical true if vertical
- * @param ship pointer to the Ship object
- */
 void Board::placeShip(int r, int c, Ship *ship, bool vertical, int owner) {
   int w = ship->getWidth();
   int h = ship->getHeight();
@@ -218,7 +177,7 @@ bool Board::tryMoveShip(Ship *ship, int dr, int dc, int owner) {
   int newR = oldR + dr;
   int newC = oldC + dc;
 
-  // Temporarily remove to check placement
+  // heck placement
   removeShip(ship);
 
   if (canPlaceShip(newR, newC, ship, vert)) {
@@ -226,20 +185,16 @@ bool Board::tryMoveShip(Ship *ship, int dr, int dc, int owner) {
     ship->setPosition(newR, newC, vert);
     return true;
   } else {
-    // Restore
+    
     placeShip(oldR, oldC, ship, vert, owner);
     return false;
   }
 }
 
-/**
- * @brief Displays the board to the terminal with ANSI colors.
- * @param isEnemyView if true, hides unhit ships.
- * @param title Title of the board display.
- */
+
 void Board::display(int cursorR, int cursorC, string title,
                     string status, Ship *activeShip) {
-  // Clear screen for interactivity
+
   cout << "\033[2J\033[H";
 
   cout << BOLD << YELLOW << "  === " << title << " ===" << RESET << "\n";
@@ -249,7 +204,7 @@ void Board::display(int cursorR, int cursorC, string title,
   cout << "  (Arrows: Move/Cursor, W: Change Ship, R: Toggle Move Mode, "
                "Space/Enter: Action, S: Save Game, Q: Quit)\n";
 
-  // Count undetected enemy submarines
+  // undetected enemy submarines
   set<Ship *> hiddenSubs;
   for (int i = 0; i < size; ++i) {
     for (int j = 0; j < size; ++j) {
@@ -270,7 +225,7 @@ void Board::display(int cursorR, int cursorC, string title,
     cout << "\n";
   }
 
-  // Print top border
+  
   cout << "   +" << string(size * 3, '-') << "+\n";
 
   for (int i = 0; i < size; ++i) {
@@ -284,10 +239,10 @@ void Board::display(int cursorR, int cursorC, string title,
     cout << "|\n";
   }
 
-  // Print bottom border
+  
   cout << "   +" << string(size * 3, '-') << "+\n";
 
-  // Legend
+
   cout << BOLD << WHITE << "  LEGEND:\n" << RESET;
   cout << "  [S],[I] Submarine      - Bullet: Arch (1x1)\n";
   cout << "  [B]     Big Boat       - Bullet: Piercing Torpedo (Line)\n";
